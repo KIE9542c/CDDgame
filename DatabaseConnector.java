@@ -275,9 +275,10 @@ public class DatabaseConnector {
      *
      * @param username 用户名
      * @throws SQLException*/
-    void setUserInPlaying(String username)throws SQLException{
-        PreparedStatement pStmt=connection.prepareStatement("insert into playing(name) value (?)");
+    void setUserInPlaying(String username,int roomNumber)throws SQLException{
+        PreparedStatement pStmt=connection.prepareStatement("insert into playing(name,roomNumber) value (?,?)");
         pStmt.setString(1,username);
+        pStmt.setInt(2,roomNumber);
 
         pStmt.executeUpdate();
     }
@@ -494,7 +495,22 @@ public class DatabaseConnector {
         // TODO: check not null for getInt method
         return resultSet.getInt("numbers");
     }
-
+    /**
+     * 获取某个房间中的人数Playing表
+     *
+     * @param roomNumber 房间号
+     * @return 房间中的人数
+     * @throws SQLException
+     */
+    synchronized int searchNumberOfUserInPlayingRoom(int roomNumber) throws SQLException {
+        PreparedStatement pStmt = connection.prepareStatement("select count(*) as numbers from playing where roomnumber = ?");
+        pStmt.setInt(1, roomNumber);
+        ResultSet resultSet = pStmt.executeQuery();
+        // TODO: check not null for resultSet
+        resultSet.next();
+        // TODO: check not null for getInt method
+        return resultSet.getInt("numbers");
+    }
     /**
      * 获取某个房间中的所有人
      *

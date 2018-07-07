@@ -264,7 +264,7 @@ public class ServerModel {
         try {
             DatabaseConnector.getInstance().setUserRoomNumber(name, roomNumber);
             //TODO：下面是将用户放进playing表中，临时方案，暂时没想好具体放进去的时机
-            DatabaseConnector.getInstance().setUserInPlaying(name);
+            DatabaseConnector.getInstance().setUserInPlaying(name,roomNumber);
 
             return ServerReply.SUCCESS;
         } catch (SQLException e) {
@@ -305,7 +305,21 @@ public class ServerModel {
             return 0;
         }
     }
-
+    /**
+     * 获取房间内人数Playing表
+     *
+     * @param roomNumber 房间号
+     * @return 房间内人数
+     */
+    int getNumberOfPlayerInPlayingRoom(int roomNumber) {
+        try {
+            return DatabaseConnector.getInstance().searchNumberOfUserInPlayingRoom(roomNumber);
+        } catch (SQLException e) {
+            // TODO: Exception handling
+            e.printStackTrace();
+            return 0;
+        }
+    }
     /**
      * 获取房间中所有用户
      * Format: name1$name2$

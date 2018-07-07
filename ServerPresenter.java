@@ -251,6 +251,13 @@ public class ServerPresenter implements ServerContract.Presenter {
             }
             case "play":{
                 String username=str[1];
+                int roomnumber=mServerModel.getUserRoomNumber(username);
+                int usernumber=mServerModel.getNumberOfPlayerInPlayingRoom(roomnumber);
+                if(usernumber < 4){
+                    mServerModel.updateUserBack(username);
+                    messageReply("back"+"$"+"-1");
+                    break;
+                }
                 int playcardnumber=Integer.parseInt(str[2]);
 
                 String cardinformation=message.substring(5);
@@ -265,7 +272,13 @@ public class ServerPresenter implements ServerContract.Presenter {
             }
             case "otherplay": {
                 String username=str[1];
-
+                int roomnumber=mServerModel.getUserRoomNumber(username);
+                int usernumber=mServerModel.getNumberOfPlayerInPlayingRoom(roomnumber);
+                if(usernumber < 4){
+                    mServerModel.updateUserBack(username);
+                    messageReply("back"+"$"+"-1");
+                    break;
+                }
                 messageReply("otherplay"+"$"+mServerModel.requestForLastPlayCard(username));
                 break;
             }
@@ -280,5 +293,8 @@ public class ServerPresenter implements ServerContract.Presenter {
                 break;
         }
     }
+
+
+
 
 }
