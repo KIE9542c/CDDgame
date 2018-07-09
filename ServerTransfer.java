@@ -37,7 +37,7 @@ public class ServerTransfer implements ServerContract.Transfer, Runnable {
     /**
      * DataOutputStream对象，用于向socket写入信息
      */
-    private DataOutputStream out = null;
+    //TODO:暂时不用private DataOutputStream out = null;
 
     /**
      * 构造方法 初始化端口号和socket
@@ -161,7 +161,6 @@ public class ServerTransfer implements ServerContract.Transfer, Runnable {
     private void closeSocket() {
         try {
             in.close();
-            out.close();
         } catch (IOException e) {
             // TODO: Exception handling
             e.printStackTrace();

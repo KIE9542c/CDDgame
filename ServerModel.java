@@ -1,5 +1,6 @@
 import com.sun.net.httpserver.Authenticator;
 
+import java.sql.Array;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -486,16 +487,16 @@ public class ServerModel {
     * @return cardset 一个乱序的牌组
      */
 
-     String []getDisorderCard(){
-        List list = new ArrayList();
+     String []getDisorderCard()throws Exception{
+        ArrayList<String> list = new ArrayList<String>();
         String [] cardset=new String[52];
         for(int i = 0;i < 52;i++){
-            list.add(i);
+            list.add(i+"");
         }
 
         Collections.shuffle(list);
 
-        Iterator ite = list.iterator();
+        Iterator<String> ite = list.iterator();
 
         for(int j=0;j<52;j++) {
 
